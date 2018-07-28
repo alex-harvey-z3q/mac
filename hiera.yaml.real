@@ -1,0 +1,12 @@
+---
+version: 5
+defaults:
+  datadir: /etc/puppetlabs/puppet/hieradata
+hierarchy:
+  - name: Eyaml backend
+    lookup_key: eyaml_lookup_key
+    paths:
+      - 'common.yaml'
+    options:
+      pkcs7_private_key: /var/root/keys/private_key.pkcs7.pem
+      pkcs7_public_key:  /var/root/keys/public_key.pkcs7.pem

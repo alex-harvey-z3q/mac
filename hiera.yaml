@@ -1,0 +1,8 @@
+---
+version: 5
+hierarchy:
+  - name: Yaml backend
+    data_hash: yaml_data
+    paths:
+      - 'common.yaml'
+    datadir: ./hieradata

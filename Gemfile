@@ -5,6 +5,18 @@ group :development do
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
   gem 'hashdiff'
+  gem 'awesome_print'
+end
+
+group :tests do
+  gem 'puppetlabs_spec_helper'
+  gem 'hiera-eyaml'
+end
+
+group :system_tests do
+  gem 'beaker'
+  gem 'beaker-rspec'
+  gem 'beaker-puppet_install_helper'
 end
 
 gem 'facter'

@@ -1,1 +1,5 @@
 keys/
+Gemfile.lock
+.bundle
+catalogs/
+spec/fixtures/

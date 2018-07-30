@@ -30,3 +30,12 @@ Finally:
 ~~~ text
 sudo puppet apply mac.pp
 ~~~
+
+# Testing
+
+To run the Rspec-puppet tests as usual:
+
+~~~ text
+bundle install --without system_tests
+bundle exec rake spec
+~~~

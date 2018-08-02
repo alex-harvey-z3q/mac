@@ -80,6 +80,7 @@ vim::vimplugs:
 python::pippkgs:
   - yq
   - ipython
+  - yamllint
 
 ruby::rubies:
   - 2.4.1

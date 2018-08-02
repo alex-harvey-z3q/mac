@@ -62,11 +62,13 @@ class brew (
   pkg { $pkgs:
     ensure   => present,
     provider => 'brew',
+    require  => Exec['install homebrew'],
   }
 
   pkg { $casks:
     ensure   => present,
     provider => 'brewcask',
+    require  => Exec['install homebrew'],
   }
 }
 

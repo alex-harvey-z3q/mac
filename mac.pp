@@ -213,7 +213,6 @@ class ruby (
 
   exec { 'install rvm':
     command => 'curl -sSL https://get.rvm.io | bash -s stable --ruby',
-    unless  => "ls -la ${::home} | grep -q git/home/dotfiles",
     creates => "${::home}/.rvm/bin/rvm",
   }
 

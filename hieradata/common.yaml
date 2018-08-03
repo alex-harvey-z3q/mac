@@ -76,6 +76,7 @@ ssh::id_rsa: >
 
 vim::vimplugs:
   puppet: git@github.com:rodjek/vim-puppet.git
+  jinja2: git@github.com:lepture/vim-jinja.git
 
 python::pippkgs:
   - yq

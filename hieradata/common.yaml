@@ -106,4 +106,7 @@ ruby::rubies:
 # Chrome
 # - Chrome Okta Extension
 #
+# Firefox
+# - Ad block
+#
 # Settings > Mission Control > uncheck "Automatically rearrange Spaces"

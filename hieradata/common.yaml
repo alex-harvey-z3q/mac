@@ -84,6 +84,7 @@ python::pippkgs:
   - yq
   - ipython
   - yamllint
+  - ansible-lint
 
 ruby::rubies:
   - 2.4.1

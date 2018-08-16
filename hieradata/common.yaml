@@ -85,6 +85,7 @@ python::pippkgs:
   - ipython
   - yamllint
   - ansible-lint
+  - virtualenv
 
 ruby::rubies:
   - 2.4.1

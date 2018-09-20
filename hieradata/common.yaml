@@ -24,6 +24,7 @@ brew::pkgs:
   - grep
   - jq
   - tree
+  - shellcheck
 
 brew::casks:
   - squidman

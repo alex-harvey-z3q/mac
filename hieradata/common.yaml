@@ -82,6 +82,7 @@ vim::vimplugs:
   jinja2: git@github.com:lepture/vim-jinja.git
   markdown: git@github.com:plasticboy/vim-markdown.git
   liquid: git@github.com:tpope/vim-liquid.git
+  vim-markdown-toc: git@github.com:mzlogin/vim-markdown-toc.git
 
 python::pippkgs:
   - yq

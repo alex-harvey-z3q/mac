@@ -225,6 +225,20 @@ class ruby (
   }
 }
 
+class shunit {
+  vcsrepo { "${::home}/git/home/shunit2":
+    ensure   => present,
+    provider => git,
+    source   => 'https://github.com/kward/shunit2.git',
+    user     => $::me,
+  }
+  ->
+  file { '/usr/local/bin/shunit2':
+    ensure => link,
+    target => "${::home}/git/home/shunit2/shunit2",
+  }
+}
+
 include brew
 include ssh
 include dotfiles
@@ -232,5 +246,6 @@ include shells
 include vim
 include python
 include ruby
+include shunit
 
 # vim:ft=puppet

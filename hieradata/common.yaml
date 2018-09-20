@@ -91,6 +91,7 @@ python::pippkgs:
   - yamllint
   - ansible-lint
   - virtualenv
+  - awscli
 
 ruby::rubies:
   - 2.4.1

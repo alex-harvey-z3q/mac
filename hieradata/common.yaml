@@ -23,6 +23,8 @@ brew::pkgs:
   - tmux
   - grep
   - jq
+  - tree
+
 brew::casks:
   - squidman
 

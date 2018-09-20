@@ -108,6 +108,7 @@ ruby::rubies:
 # - Chrome
 # - Docker
 # - Vagrant
+# - jre-8u181
 #
 # Opera
 # - Chrome https://addons.opera.com/en/extensions/details/install-chrome-extensions/

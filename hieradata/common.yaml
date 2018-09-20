@@ -83,6 +83,7 @@ vim::vimplugs:
   markdown: git@github.com:plasticboy/vim-markdown.git
   liquid: git@github.com:tpope/vim-liquid.git
   vim-markdown-toc: git@github.com:mzlogin/vim-markdown-toc.git
+  ps1: git@github.com:PProvost/vim-ps1.git
 
 python::pippkgs:
   - yq

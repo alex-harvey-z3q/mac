@@ -25,6 +25,8 @@ brew::pkgs:
   - jq
   - tree
   - shellcheck
+  - cloc
+  - node
 
 brew::casks:
   - squidman

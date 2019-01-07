@@ -86,6 +86,7 @@ vim::vimplugs:
   liquid: git@github.com:tpope/vim-liquid.git
   vim-markdown-toc: git@github.com:mzlogin/vim-markdown-toc.git
   ps1: git@github.com:PProvost/vim-ps1.git
+  Jenkinsfile-vim-syntax: git@github.com:martinda/Jenkinsfile-vim-syntax.git
 
 python::pippkgs:
   - yq

@@ -27,6 +27,7 @@ brew::pkgs:
   - shellcheck
   - cloc
   - node@8
+  - colordiff
 
 brew::casks:
   - squidman

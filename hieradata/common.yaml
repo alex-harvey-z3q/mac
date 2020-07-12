@@ -26,7 +26,6 @@ brew::pkgs:
   - tree
   - shellcheck
   - cloc
-  - node@8
   - colordiff
 
 brew::casks:

@@ -186,7 +186,7 @@ class vim (
   }
 }
 
-class ruby (
+class ruby {
   exec { 'install rvm':
     command => 'curl -sSL https://get.rvm.io | bash -s stable --ruby',
     creates => "${::home}/.rvm",

@@ -135,12 +135,6 @@ class shells::zsh {
     provider => 'brew',
   }
 
-  user { $::me:
-    ensure  => present,
-    shell   => '/usr/local/bin/zsh',
-    require => Pkg['zsh'],
-  }
-
   exec { 'install oh-my-zsh':
     command => 'sh -c "$(curl -fsSL https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh)"',
     creates => "${::home}/.oh-my-zsh",
@@ -154,6 +148,14 @@ class shells::zsh {
   exec { 'install antigen':
     command => "curl -L git.io/antigen > ${::home}/.antigen/antigen.zsh",
     creates => "${::home}/.antigen/antigen.zsh",
+  }
+
+  file { ['/usr/local/share/zsh','/usr/local/share/zsh/site-functions']:
+    ensure  => directory,
+    owner   => $::me,
+    group   => 'admin',
+    mode    => '755',
+    require => Pkg['zsh'],
   }
 }
 

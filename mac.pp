@@ -127,11 +127,6 @@ class shells::bash {
     command => 'brew link bash',
     creates => '/usr/local/bin/bash',
   }
-  ->
-  exec { 'install oh-my-bash':
-    command => 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"',
-    creates => "${::home}/.oh-my-bash",
-  }
 }
 
 class shells::zsh {

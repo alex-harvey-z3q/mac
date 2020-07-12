@@ -192,7 +192,7 @@ class ruby (
 
   exec { 'install rvm':
     command => 'curl -sSL https://get.rvm.io | bash -s stable --ruby',
-    creates => "${::home}/.rvm/bin/rvm",
+    creates => "${::home}/.rvm",
   }
 
   $rubies.each |$ruby| {

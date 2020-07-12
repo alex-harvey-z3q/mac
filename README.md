@@ -15,12 +15,20 @@ Alexs-MacBook-Pro:~ root# find /var/root/keys -ls -type f
 4297026372        8 -r--------    1 root             wheel                1675 Jul 29 15:47 /var/root/keys/private_key.pkcs7.pem
 ~~~
 
+Then, install the vcsrepo module:
+
+~~~ text
+Alexs-MacBook-Pro:~ root# puppet module install puppetlabs-vcsrepo
+~~~
+
 It's assumed that this is installed in `/Users/alexharvey/git/home/mac`.
 
 Link the real hiera.yaml and hieradata files:
 
 ~~~ text
 cd /etc/puppetlabs/puppet && \
+  mv -f hiera.yaml hiera.yaml.orig && \
+  mv -f hieradata hieradata.orig && \
   ln -s /Users/alexharvey/git/home/mac/hiera.yaml.real hiera.yaml && \
   ln -s /Users/alexharvey/git/home/mac/hieradata
 ~~~

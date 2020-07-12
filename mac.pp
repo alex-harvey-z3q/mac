@@ -189,24 +189,6 @@ class vim (
   }
 }
 
-class python (
-  Array[String] $pippkgs,
-  ) {
-
-  pkg { 'python@2':
-    ensure   => present,
-    provider => 'brew',
-  }
-
-  $pippkgs.each |$pkg| {
-    pkg { $pkg:
-      ensure   => present,
-      provider => 'pip',
-      require  => Pkg['python@2'],
-    }
-  }
-}
-
 class ruby (
   Array[String] $rubies,
   ) {
@@ -244,7 +226,6 @@ include ssh
 include dotfiles
 include shells
 include vim
-include python
 include ruby
 include shunit
 

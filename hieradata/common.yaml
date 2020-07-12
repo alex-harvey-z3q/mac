@@ -27,6 +27,10 @@ brew::pkgs:
   - shellcheck
   - cloc
   - colordiff
+  - yq
+  - yamllint
+  - awscli
+  - pyenv
 
 brew::casks:
   - squidman

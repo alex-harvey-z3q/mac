@@ -218,6 +218,16 @@ class shunit {
   }
 }
 
+class python {
+  vcsrepo { "${::home}/.pyenv":
+    ensure   => present,
+    provider => git,
+    source   => 'https://github.com/pyenv/pyenv.git',
+    user     => $::me,
+    require  => Pkg['pyenv'],
+  }
+}
+
 include brew
 include ssh
 include dotfiles
@@ -225,5 +235,6 @@ include shells
 include vim
 include ruby
 include shunit
+include python
 
 # vim:ft=puppet

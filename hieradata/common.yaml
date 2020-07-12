@@ -90,6 +90,7 @@ vim::vimplugs:
   vim-markdown-toc: git@github.com:mzlogin/vim-markdown-toc.git
   ps1: git@github.com:PProvost/vim-ps1.git
   Jenkinsfile-vim-syntax: git@github.com:martinda/Jenkinsfile-vim-syntax.git
+  terraform: git@github.com:hashivim/vim-terraform.git
 
 # TODO.
 #

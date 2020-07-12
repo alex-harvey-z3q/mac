@@ -91,10 +91,6 @@ vim::vimplugs:
   ps1: git@github.com:PProvost/vim-ps1.git
   Jenkinsfile-vim-syntax: git@github.com:martinda/Jenkinsfile-vim-syntax.git
 
-ruby::rubies:
-  - 2.4.1
-  - 2.1.4
-
 # TODO.
 #
 # App Store apps

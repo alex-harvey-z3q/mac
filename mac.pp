@@ -187,20 +187,9 @@ class vim (
 }
 
 class ruby (
-  Array[String] $rubies,
-  ) {
-
   exec { 'install rvm':
     command => 'curl -sSL https://get.rvm.io | bash -s stable --ruby',
     creates => "${::home}/.rvm",
-  }
-
-  $rubies.each |$ruby| {
-    pkg { $ruby:
-      ensure   => present,
-      provider => 'rvm',
-      require  => Exec['install rvm'],
-    }
   }
 }
 

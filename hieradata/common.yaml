@@ -32,8 +32,7 @@ brew::pkgs:
   - awscli
   - pyenv
 
-brew::casks:
-  - squidman
+brew::casks: []
 
 ssh::id_rsa: >
     ENC[PKCS7,MIIH/QYJKoZIhvcNAQcDoIIH7jCCB+oCAQAxggEhMIIBHQIBADAFMAACAQEw

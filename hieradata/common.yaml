@@ -31,6 +31,9 @@ brew::pkgs:
   - yamllint
   - awscli
   - pyenv
+  - findutils
+  - gnu-sed
+  - gawk
 
 brew::casks: []
 

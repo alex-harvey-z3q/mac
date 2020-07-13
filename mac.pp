@@ -207,15 +207,19 @@ class shunit {
   }
 }
 
-class python {
-  vcsrepo { "${::home}/.pyenv":
-    ensure   => present,
-    provider => git,
-    source   => 'https://github.com/pyenv/pyenv.git',
-    user     => $::me,
-    require  => Pkg['pyenv'],
-  }
-}
+# FIXME. Getting:
+#
+# Error: /Stage[main]/Python/Vcsrepo[/Users/alexharvey/.pyenv]/ensure: change from 'absent' to 'present' failed: Path /Users/alexharvey/.pyenv exists and is not the desired repository.
+#
+# class python {
+#   vcsrepo { "${::home}/.pyenv":
+#     ensure   => present,
+#     provider => git,
+#     source   => 'https://github.com/pyenv/pyenv.git',
+#     user     => $::me,
+#     require  => Pkg['pyenv'],
+#   }
+# }
 
 include brew
 include ssh
@@ -224,6 +228,6 @@ include shells
 include vim
 include ruby
 include shunit
-include python
+# include python
 
 # vim:ft=puppet

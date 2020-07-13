@@ -28,7 +28,7 @@ brew::pkgs:
   - shellcheck
   - cloc
   - colordiff
-  - yq
+  - python-yq  # Because yq is another thing!
   - yamllint
   - awscli
   - pyenv

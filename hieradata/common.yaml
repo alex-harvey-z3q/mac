@@ -36,6 +36,7 @@ brew::pkgs:
   - gnu-sed
   - gawk
   - make
+  - cookiecutter
 
 brew::casks: []
 

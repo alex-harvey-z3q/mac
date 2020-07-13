@@ -35,6 +35,7 @@ brew::pkgs:
   - findutils
   - gnu-sed
   - gawk
+  - make
 
 brew::casks: []
 

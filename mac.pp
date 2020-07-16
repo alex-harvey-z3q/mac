@@ -207,6 +207,20 @@ class shunit {
   }
 }
 
+class diff_highlight {
+  vcsrepo { "${::home}/git/home/scripts":
+    ensure   => present,
+    provider => git,
+    source   => 'https://github.com/alexharv074/scripts.git',
+    user     => $::me,
+  }
+  ->
+  file { '/usr/local/bin/DiffHighlight.pl':
+    ensure => link,
+    target => "${::home}/git/home/scripts/DiffHighlight.pl",
+  }
+}
+
 # FIXME. Getting:
 #
 # Error: /Stage[main]/Python/Vcsrepo[/Users/alexharvey/.pyenv]/ensure: change from 'absent' to 'present' failed: Path /Users/alexharvey/.pyenv exists and is not the desired repository.
@@ -228,6 +242,7 @@ include shells
 include vim
 include ruby
 include shunit
+include diff_highlight
 # include python
 
 # vim:ft=puppet

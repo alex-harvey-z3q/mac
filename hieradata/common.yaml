@@ -102,26 +102,18 @@ vim::vimplugs:
 #
 # App Store apps
 # - KyPass
+# - Owly
 #
 # DMG file apps
+# - Puppet
 # - Firefox
-# - Opera
 # - Chrome
 # - Docker
 # - Vagrant
 # - jre-8u181
 #
-# Opera
-# - Chrome https://addons.opera.com/en/extensions/details/install-chrome-extensions/
-# - Chrome Okta Extension
-#
-# Chrome
-# - Chrome Okta Extension
-#
 # Firefox
 # - Okta Plugin
-# - Ad block
 #
 # Settings > Mission Control > uncheck "Automatically rearrange Spaces"
 # Settings > General > Recent items: None
-# Settings > Keyboard > Customize control strip: Added Sleep, deleted Siri.

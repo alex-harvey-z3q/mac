@@ -37,8 +37,10 @@ brew::pkgs:
   - gawk
   - make
   - cookiecutter
+  - node
 
-brew::casks: []
+brew::casks:
+  - puppetlabs/puppet/pdk
 
 ssh::id_rsa: >
     ENC[PKCS7,MIIH/QYJKoZIhvcNAQcDoIIH7jCCB+oCAQAxggEhMIIBHQIBADAFMAACAQEw
@@ -97,6 +99,9 @@ vim::vimplugs:
   ps1: git@github.com:PProvost/vim-ps1.git
   Jenkinsfile-vim-syntax: git@github.com:martinda/Jenkinsfile-vim-syntax.git
   terraform: git@github.com:hashivim/vim-terraform.git
+  vim-log-highlighting: git@github.com:mtdl9/vim-log-highlighting
+  vim-SyntaxRange: git@github.com:inkarkat/vim-SyntaxRange
+  python-syntax: git@github.com:vim-python/python-syntax
 
 # TODO.
 #

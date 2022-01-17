@@ -52,7 +52,7 @@ vim::vimplugs:
   vim-log-highlighting: git@github.com:mtdl9/vim-log-highlighting
   vim-SyntaxRange: git@github.com:inkarkat/vim-SyntaxRange
   python-syntax: git@github.com:vim-python/python-syntax
-  ruby: git@github.com/vim-ruby/vim-ruby
+  ruby: git@github.com:vim-ruby/vim-ruby
 
 # TODO.
 #

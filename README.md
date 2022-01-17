@@ -4,7 +4,13 @@ This contains Puppet code that configures my MacBook Pro.
 
 # Usage
 
-Firstly, install the Mac OS X Puppet Agent.
+Ensure Puppet is in the path:
+
+~~~ text
+export PATH=/opt/puppetlabs/bin:"$PATH"
+~~~
+
+Install the Mac OS X Puppet Agent.
 
 Once installed, copy the secret Hiera keys to `/root/keys`.
 
@@ -18,7 +24,7 @@ Alexs-MacBook-Pro:~ root# find /var/root/keys -ls -type f
 Then, install the vcsrepo module:
 
 ~~~ text
-Alexs-MacBook-Pro:~ root# puppet module install puppetlabs-vcsrepo
+sudo puppet module install puppetlabs-vcsrepo
 ~~~
 
 It's assumed that this is installed in `/Users/alexharvey/git/home/mac`.
@@ -26,7 +32,7 @@ It's assumed that this is installed in `/Users/alexharvey/git/home/mac`.
 Link the real hiera.yaml and hieradata files:
 
 ~~~ text
-cd /etc/puppetlabs/puppet && \
+sudo cd /etc/puppetlabs/puppet && \
   mv -f hiera.yaml hiera.yaml.orig && \
   mv -f hieradata hieradata.orig && \
   ln -s /Users/alexharvey/git/home/mac/hiera.yaml.real hiera.yaml && \

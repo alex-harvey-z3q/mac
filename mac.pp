@@ -41,7 +41,6 @@ define pkg(
 }
 
 class brew (
-  String $laptop_password,
   Array[String] $pkgs,
   Array[String] $casks,
   ) {
@@ -72,10 +71,7 @@ class brew (
   }
 }
 
-class ssh (
-  String $id_rsa,
-  ) {
-
+class ssh {
   file { "${::home}/.ssh":
     ensure => directory,
     owner  => $::me,

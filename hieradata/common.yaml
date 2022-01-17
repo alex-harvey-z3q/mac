@@ -17,8 +17,6 @@ shells::shells: |
   /usr/local/bin/bash
   /usr/local/bin/zsh
 
-brew::laptop_password: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAdkcMsk9wgSe+zvJbmfigss2RaNIIHhzPbyIlu60fBtxQFydBN0EVpDH0TQ1Bld3uqbqX0Qa9rWj/raBIG1+1ASE8eJqjIbZ1WMl9XtWAq+t4p7SaW8mAJxlqO3MEelDGn4HpXBU5JJBBwUkA9ME9XNf7YquHwhsA354DnXjIFNJ8noQ0oQCdY0K+KVH3/k4sk0DqPzExVu/cH5vJ6kRk1vwrCtXmjnaY6n93E4Ckq1mWHNCoYVdLwdOmC49jObUU6sLS0Fng6eIel6cLKfEXoH4OVO5fYA7jcIobYbHp6LWqVAomp8U6+nOcC4PIGkKSzL46ikCM3dXCzr2V6ZYYQDA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBDABVw/4oqK1fWWKxO+Bt/tgBC/iT0cp6h+pYOKz5eia1tn]
-
 brew::pkgs:
   - wget
   - tmux

@@ -48,7 +48,7 @@ export FACTER_laptop_password=xxxxxxxx
 1. Finally:
 
 ~~~ text
-sudo puppet apply mac.pp
+sudo -E puppet apply mac.pp
 ~~~
 
 # Testing

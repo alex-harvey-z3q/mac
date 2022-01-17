@@ -4,15 +4,9 @@ This contains Puppet code that configures my MacBook Pro.
 
 # Usage
 
-Ensure Puppet is in the path:
+1. Install the Mac OS X Puppet Agent.
 
-~~~ text
-export PATH=/opt/puppetlabs/bin:"$PATH"
-~~~
-
-Install the Mac OS X Puppet Agent.
-
-Once installed, copy the secret Hiera keys to `/root/keys`.
+1. Once installed, copy the secret Hiera keys to `/root/keys`.
 
 ~~~ text
 Alexs-MacBook-Pro:~ root# find /var/root/keys -ls -type f
@@ -21,15 +15,15 @@ Alexs-MacBook-Pro:~ root# find /var/root/keys -ls -type f
 4297026372        8 -r--------    1 root             wheel                1675 Jul 29 15:47 /var/root/keys/private_key.pkcs7.pem
 ~~~
 
-Then, install the vcsrepo module:
+1. Then, install the vcsrepo module:
 
 ~~~ text
 sudo puppet module install puppetlabs-vcsrepo
 ~~~
 
-It's assumed that this is installed in `/Users/alexharvey/git/home/mac`.
+1. Clone this repo.  It is assumed that this is installed in `/Users/alexharvey/git/home/mac`.
 
-Link the real hiera.yaml and hieradata files:
+1. Link the real hiera.yaml and hieradata files:
 
 ~~~ text
 sudo cd /etc/puppetlabs/puppet && \
@@ -39,7 +33,19 @@ sudo cd /etc/puppetlabs/puppet && \
   ln -s /Users/alexharvey/git/home/mac/hieradata
 ~~~
 
-Finally:
+1. Ensure Puppet is in the path:
+
+~~~ text
+export PATH=/opt/puppetlabs/bin:"$PATH"
+~~~
+
+1. Export the laptop password:
+
+~~~ text
+export FACTER_laptop_password=xxxxxxxx
+~~~
+
+1. Finally:
 
 ~~~ text
 sudo puppet apply mac.pp

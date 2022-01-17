@@ -23,7 +23,7 @@ define pkg(
       }
     }
     'brewcask': {
-      exec { "brew cask install $name":
+      exec { "brew install --cask $name":
         unless => "brew list $name",
       }
     }

@@ -81,13 +81,6 @@ class ssh (
     owner  => $::me,
     mode   => '0700',
   }
-
-  file { "${::home}/.ssh/id_rsa":
-    ensure  => file,
-    content => $id_rsa,
-    owner   => $::me,
-    mode    => '0600',
-  }
 }
 
 class dotfiles {

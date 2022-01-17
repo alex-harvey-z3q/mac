@@ -42,54 +42,6 @@ brew::pkgs:
 brew::casks:
   - puppetlabs/puppet/pdk
 
-ssh::id_rsa: >
-    ENC[PKCS7,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
-    cJdzJkLLbn88fa4Y1B6UICOrwBVga/gY]
-
 vim::vimplugs:
   puppet: git@github.com:rodjek/vim-puppet.git
   jinja2: git@github.com:lepture/vim-jinja.git

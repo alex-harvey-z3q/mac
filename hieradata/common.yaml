@@ -71,5 +71,10 @@ vim::vimplugs:
 # Firefox
 # - Okta Plugin
 #
+# Chrome
+# - https://github.com/iamadamdev/bypass-paywalls-chrome
+# - Okta Browser Plugin
+# - AWS Extend Switch Roles
+#
 # Settings > Mission Control > uncheck "Automatically rearrange Spaces"
 # Settings > General > Recent items: None

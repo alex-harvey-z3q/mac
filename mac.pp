@@ -28,7 +28,7 @@ define pkg(
     }
     'brewcask': {
       exec { "brew install --cask $name":
-        unless => "brew list $name",
+        unless => "brew casks | grep -qw $name",
       }
     }
     'pip': {

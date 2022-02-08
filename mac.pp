@@ -1,5 +1,9 @@
 #!/usr/bin/env puppet apply
 
+if (! defined('$laptop_password')) {
+  fail('export FACTER_laptop_password')
+}
+
 $me      = lookup('me')
 $full_me = lookup('full_me')
 $home    = lookup('home')

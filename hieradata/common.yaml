@@ -53,6 +53,7 @@ vim::vimplugs:
   vim-SyntaxRange: git@github.com:inkarkat/vim-SyntaxRange
   python-syntax: git@github.com:vim-python/python-syntax
   ruby: git@github.com:vim-ruby/vim-ruby
+  groovy: git@github.com:thecodesmith/vim-groovy
 
 # TODO.
 #

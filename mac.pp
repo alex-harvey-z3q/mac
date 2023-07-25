@@ -56,7 +56,7 @@ class brew (
   }
   ->
   exec { 'install homebrew':
-    command     => 'echo "" | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"',
+    command     => 'echo "" | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',  # May have to do this manually.
     environment => ["USER=${::me}", "SUDO_ASKPASS=/var/root/pw.sh", "HOME=${::home}"],
     timeout     => 0,
     creates     => '/usr/local/bin/brew',

@@ -1,7 +1,7 @@
 ---
 me: alex.harvey
 full_me: Alex Harvey
-home: /Users/alexharvey
+home: /Users/alex.harvey
 
 shells::shells: |
   # List of acceptable shells for chpass(1).
@@ -68,9 +68,6 @@ vim::vimplugs:
 # - Docker
 # - Vagrant
 # - jre-8u181
-#
-# Firefox
-# - Okta Plugin
 #
 # Chrome
 # - https://github.com/iamadamdev/bypass-paywalls-chrome

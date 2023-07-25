@@ -12,14 +12,13 @@ This contains Puppet code that configures my MacBook Pro.
 sudo puppet module install puppetlabs-vcsrepo
 ~~~
 
-1. Clone this repo.  It is assumed that this is installed in `/Users/alexharvey/git/home/mac`.
+1. Clone this repo.  It is assumed that this is installed in `/Users/alexharvey/git/home/mac`. (*IF NOT* replace all references in common.yaml.)
 
 1. Link the real hiera.yaml and hieradata files:
 
 ~~~ text
 sudo cd /etc/puppetlabs/puppet && \
   mv -f hiera.yaml hiera.yaml.orig && \
-  mv -f hieradata hieradata.orig && \
   ln -s /Users/alexharvey/git/home/mac/hiera.yaml.real hiera.yaml && \
   ln -s /Users/alexharvey/git/home/mac/hieradata
 ~~~

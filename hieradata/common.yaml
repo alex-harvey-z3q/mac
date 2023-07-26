@@ -37,6 +37,7 @@ brew::pkgs:
   - cookiecutter
   - node
   - kubectl
+  - terraform-docs
 
 brew::casks:
   - puppetlabs/puppet/pdk
@@ -55,6 +56,8 @@ vim::vimplugs:
   python-syntax: git@github.com:vim-python/python-syntax
   ruby: git@github.com:vim-ruby/vim-ruby
   groovy: git@github.com:thecodesmith/vim-groovy
+  extras: git@github.com:justinmk/vim-syntax-extra.git
+  bash: git@github.com:WolfgangMehner/bash-support.git
 
 # TODO.
 #

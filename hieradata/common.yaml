@@ -36,6 +36,7 @@ brew::pkgs:
   - make
   - cookiecutter
   - node
+  - kubectl
 
 brew::casks:
   - puppetlabs/puppet/pdk

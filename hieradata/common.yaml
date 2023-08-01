@@ -37,6 +37,7 @@ brew::pkgs:
   - cookiecutter
   - node
   - kubectl
+  - kubeseal
   - terraform-docs
 
 brew::casks:
@@ -77,6 +78,8 @@ vim::vimplugs:
 # - https://github.com/iamadamdev/bypass-paywalls-chrome
 # - Okta Browser Plugin
 # - AWS Extend Switch Roles
+#
+# SSM plugin https://docs.aws.amazon.com/systems-manager/latest/userguide/install-plugin-macos-overview.html
 #
 # Settings > Mission Control > uncheck "Automatically rearrange Spaces"
 # Settings > General > Recent items: None

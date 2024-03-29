@@ -18,6 +18,7 @@ shells::shells: |
   /usr/local/bin/zsh
 
 brew::pkgs:
+  - vim
   - wget
   - tmux
   - grep
@@ -37,8 +38,17 @@ brew::pkgs:
   - cookiecutter
   - node
   - kubectl
+  - kubectx
   - kubeseal
+  - helm
+  - helmfile
+  - derailed/k9s/k9s
   - terraform-docs
+  - tflint
+  - coreutils
+  - dos2unix
+  - parallel
+  - htop
 
 brew::casks:
   - puppetlabs/puppet/pdk

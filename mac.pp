@@ -236,6 +236,10 @@ include vim
 include ruby
 include shunit
 include diff_highlight
+# TODO
+# - mdtoc.rb
+# - AWS CLI scripts
+#
 # include python
 
 # vim:ft=puppet

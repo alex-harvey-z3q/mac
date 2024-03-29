@@ -68,7 +68,6 @@ vim::vimplugs:
   ruby: git@github.com:vim-ruby/vim-ruby
   groovy: git@github.com:thecodesmith/vim-groovy
   extras: git@github.com:justinmk/vim-syntax-extra.git
-  bash: git@github.com:WolfgangMehner/bash-support.git
 
 # TODO.
 #

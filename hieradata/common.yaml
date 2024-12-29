@@ -50,6 +50,8 @@ brew::pkgs:
   - dos2unix
   - parallel
   - htop
+  - rbenv
+  - ruby-build
 
 brew::casks:
   - puppetlabs/puppet/pdk

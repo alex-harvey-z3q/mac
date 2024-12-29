@@ -45,6 +45,7 @@ brew::pkgs:
   - derailed/k9s/k9s
   - terraform-docs
   - tflint
+  - hclq
   - coreutils
   - dos2unix
   - parallel

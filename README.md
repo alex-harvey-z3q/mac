@@ -40,10 +40,10 @@ sudo cd /etc/puppetlabs/puppet && \
 export PATH=/opt/puppetlabs/bin:"$PATH"
 ```
 
-1. Export the laptop password:
+1. Export the laptop password (zsh version):
 
-```bash
-read -p "Enter laptop password: " FACTER_laptop_password
+```zsh
+read "FACTER_laptop_password?Enter laptop password: "
 export FACTER_laptop_password
 ```
 

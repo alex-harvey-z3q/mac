@@ -1,7 +1,7 @@
 ---
-me: alex.harvey
+me: alexharvey
 full_me: Alex Harvey
-home: /Users/alex.harvey
+home: /Users/alexharvey
 
 shells::shells: |
   # List of acceptable shells for chpass(1).

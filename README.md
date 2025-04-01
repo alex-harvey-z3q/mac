@@ -18,6 +18,15 @@ sudo puppet module install puppetlabs-vcsrepo
 
 1. Link the real hiera.yaml and hieradata files:
 
+1. Double check that these details are applicable to the Mac from [./hieradata/common.yaml](./hieradata/common.yaml):
+
+```yaml
+---
+me: alexharvey
+full_me: Alex Harvey
+home: /Users/alex.harvey
+```
+
 ```bash
 sudo cd /etc/puppetlabs/puppet && \
   mv -f hiera.yaml hiera.yaml.orig && \

@@ -45,7 +45,7 @@ brew::pkgs:
   - derailed/k9s/k9s
   - terraform-docs
   - tflint
-  - hclq
+  # - hclq - not in brew any more?
   - coreutils
   - dos2unix
   - parallel
@@ -53,8 +53,8 @@ brew::pkgs:
   - rbenv
   - ruby-build
 
-brew::casks:
-  - puppetlabs/puppet/pdk
+brew::casks: []
+  #- puppetlabs/puppet/pdk - seems to now need a password
 
 vim::vimplugs:
   puppet: git@github.com:rodjek/vim-puppet.git

@@ -6,6 +6,8 @@ This contains Puppet code that configures my MacBook Pro.
 
 1. Install the Mac OS X Puppet Agent.
 
+1. Ensure Homebrew is installed and install it if it's not. See its [home page](https://brew.sh/).
+
 1. Then, install the vcsrepo module:
 
 ```bash

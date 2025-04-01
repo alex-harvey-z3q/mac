@@ -9,10 +9,10 @@ $full_me = lookup('full_me')
 $home    = lookup('home')
 
 Exec {
-  path => '/bin:/usr/bin:/usr/local/bin',
+  path => '/opt/homebrew/bin:/bin:/usr/bin:/usr/local/bin',
   user => $me,
   cwd  => $home,
-  environment => ["HOME=${home}"],
+  environment => ["HOME=$home"],
 }
 
 define pkg(
@@ -44,36 +44,36 @@ define pkg(
   }
 }
 
-class brew (
-  Array[String] $pkgs,
-  Array[String] $casks,
-  ) {
-
-  file { '/var/root/pw.sh':
-    ensure  => file,
-    mode    => '0700',
-    content => "#!/bin/bash\necho ${laptop_password}",
-  }
-  ->
-  exec { 'install homebrew':
-    command     => 'echo "" | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',  # May have to do this manually.
-    environment => ["USER=${::me}", "SUDO_ASKPASS=/var/root/pw.sh", "HOME=${::home}"],
-    timeout     => 0,
-    creates     => '/usr/local/bin/brew',
-  }
-
-  pkg { $pkgs:
-    ensure   => present,
-    provider => 'brew',
-    require  => Exec['install homebrew'],
-  }
-
-  pkg { $casks:
-    ensure   => present,
-    provider => 'brewcask',
-    require  => Exec['install homebrew'],
-  }
-}
+# class brew (
+#   Array[String] $pkgs,
+#   Array[String] $casks,
+#   ) {
+#
+#   file { '/var/root/pw.sh':
+#     ensure  => file,
+#     mode    => '0700',
+#     content => "#!/bin/bash\necho ${laptop_password}",
+#   }
+#   ->
+#   exec { 'install homebrew':
+#     command     => 'yes | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',  # May have to do this manually.
+#     environment => ["USER=${::me}", "SUDO_ASKPASS=/var/root/pw.sh", "HOME=${::home}"],
+#     timeout     => 0,
+#     creates     => '/usr/local/bin/brew',
+#   }
+#
+#   pkg { $pkgs:
+#     ensure   => present,
+#     provider => 'brew',
+#     require  => Exec['install homebrew'],
+#   }
+#
+#   pkg { $casks:
+#     ensure   => present,
+#     provider => 'brewcask',
+#     require  => Exec['install homebrew'],
+#   }
+# }
 
 class ssh {
   file { "${::home}/.ssh":
@@ -118,7 +118,7 @@ class shells::bash {
   ->
   exec { 'link-bash':
     command => 'brew link bash',
-    creates => '/usr/local/bin/bash',
+    creates => '/opt/homebrew/bin/bash',
   }
 }
 
@@ -228,7 +228,7 @@ class diff_highlight {
 #   }
 # }
 
-include brew
+# include brew
 include ssh
 include dotfiles
 include shells

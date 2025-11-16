@@ -66,6 +66,7 @@ sudo -E puppet apply mac.pp
 To run the Rspec-puppet tests as usual:
 
 ```text
-bundle install --without system_tests
+bundle config set --local without 'system_tests'
+bundle install
 bundle exec rake spec
 ```

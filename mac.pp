@@ -49,24 +49,18 @@ class brew (
   Array[String] $casks,
   ) {
 
-  # file { '/var/root/pw.sh':
-  #   ensure  => file,
-  #   mode    => '0700',
-  #   content => "#!/bin/bash\necho ${laptop_password}",
-  # }
-  # ->
-  # exec { 'install homebrew':
-  #   command     => 'yes | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',  # May have to do this manually.
-  #   environment => ["USER=${::me}", "SUDO_ASKPASS=/var/root/pw.sh", "HOME=${::home}"],
-  #   timeout     => 0,
-  #   creates     => '/usr/local/bin/brew',
-  # }
-
+  exec { 'install homebrew':
+    command     => 'NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
+    environment => ["USER=${me}", "HOME=${home}"],
+    timeout     => 0,
+    creates     => '/opt/homebrew/bin/brew',
+  }
+  ->
   pkg { $pkgs:
     ensure   => present,
     provider => 'brew',
   }
-
+  ->
   pkg { $casks:
     ensure   => present,
     provider => 'brewcask',

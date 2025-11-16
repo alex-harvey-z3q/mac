@@ -120,28 +120,30 @@ class shells::zsh {
     provider => 'brew',
   }
 
-  exec { 'install oh-my-zsh':
-    command => 'sh -c "$(curl -fsSL https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh)"',
-    creates => "${home}/.oh-my-zsh",
-  }
-
-  file { "${home}/.antigen":
-    ensure => directory,
-    owner  => $me,
-  }
-  ->
-  exec { 'install antigen':
-    command => "curl -L git.io/antigen > ${home}/.antigen/antigen.zsh",
-    creates => "${home}/.antigen/antigen.zsh",
-  }
-
-  file { ['/usr/local/share/zsh','/usr/local/share/zsh/site-functions']:
-    ensure  => directory,
-    owner   => $me,
-    group   => 'admin',
-    mode    => '755',
-    require => Pkg['zsh'],
-  }
+# I don't think I want this any more:
+#
+#  exec { 'install oh-my-zsh':
+#    command => 'sh -c "$(curl -fsSL https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh)"',
+#    creates => "${home}/.oh-my-zsh",
+#  }
+#
+#  file { "${home}/.antigen":
+#    ensure => directory,
+#    owner  => $me,
+#  }
+#  ->
+#  exec { 'install antigen':
+#    command => "curl -L git.io/antigen > ${home}/.antigen/antigen.zsh",
+#    creates => "${home}/.antigen/antigen.zsh",
+#  }
+#
+#  file { ['/usr/local/share/zsh','/usr/local/share/zsh/site-functions']:
+#    ensure  => directory,
+#    owner   => $me,
+#    group   => 'admin',
+#    mode    => '755',
+#    require => Pkg['zsh'],
+#  }
 }
 
 class vim (

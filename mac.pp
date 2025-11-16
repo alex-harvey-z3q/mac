@@ -68,25 +68,25 @@ class brew (
 }
 
 class ssh {
-  file { "${::home}/.ssh":
+  file { "${home}/.ssh":
     ensure => directory,
-    owner  => $::me,
+    owner  => $me,
     mode   => '0700',
   }
 }
 
 class dotfiles {
-  vcsrepo { "${::home}/git/home/dotfiles":
+  vcsrepo { "${home}/git/home/dotfiles":
     ensure   => present,
     provider => git,
     source   => 'git@github.com:alexharv074/dotfiles.git',
-    user     => $::me,
+    user     => $me,
   }
   ->
   exec { 'dotfiles':
     command => 'bash git/home/dotfiles/install.sh',
-    unless  => "ls -la ${::home} | grep -q git/home/dotfiles",
-    require => Vcsrepo["${::home}/git/home/dotfiles"],
+    unless  => "ls -la ${home} | grep -q git/home/dotfiles",
+    require => Vcsrepo["${home}/git/home/dotfiles"],
   }
 }
 
@@ -122,22 +122,22 @@ class shells::zsh {
 
   exec { 'install oh-my-zsh':
     command => 'sh -c "$(curl -fsSL https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh)"',
-    creates => "${::home}/.oh-my-zsh",
+    creates => "${home}/.oh-my-zsh",
   }
 
-  file { "${::home}/.antigen":
+  file { "${home}/.antigen":
     ensure => directory,
-    owner  => $::me,
+    owner  => $me,
   }
   ->
   exec { 'install antigen':
-    command => "curl -L git.io/antigen > ${::home}/.antigen/antigen.zsh",
-    creates => "${::home}/.antigen/antigen.zsh",
+    command => "curl -L git.io/antigen > ${home}/.antigen/antigen.zsh",
+    creates => "${home}/.antigen/antigen.zsh",
   }
 
   file { ['/usr/local/share/zsh','/usr/local/share/zsh/site-functions']:
     ensure  => directory,
-    owner   => $::me,
+    owner   => $me,
     group   => 'admin',
     mode    => '755',
     require => Pkg['zsh'],
@@ -148,25 +148,25 @@ class vim (
   Hash[String, String] $vimplugs,
   ) {
 
-  file { ["${::home}/.vim", "${::home}/.vim/autoload", "${::home}/.vim/bundle"]:
+  file { ["${home}/.vim", "${home}/.vim/autoload", "${home}/.vim/bundle"]:
     ensure => directory,
-    owner  => $::me,
+    owner  => $me,
   }
 
   exec { 'install pathogen':
-    command => "curl -LSso ${::home}/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim",
+    command => "curl -LSso ${home}/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim",
     path    => '/bin:/usr/bin',
-    user    => $::me,
-    creates => "${::home}/.vim/autoload/pathogen.vim",
+    user    => $me,
+    creates => "${home}/.vim/autoload/pathogen.vim",
   }
 
   $vimplugs.each |$dir, $source| {
-    vcsrepo { "${::home}/.vim/bundle/$dir":
+    vcsrepo { "${home}/.vim/bundle/$dir":
       ensure   => present,
       provider => git,
       source   => $source,
-      user     => $::me,
-      require  => File["${::home}/.vim/bundle"],
+      user     => $me,
+      require  => File["${home}/.vim/bundle"],
     }
   }
 }
@@ -174,35 +174,35 @@ class vim (
 class ruby {
   exec { 'install rvm':
     command => 'curl -sSL https://get.rvm.io | bash -s stable --ruby',
-    creates => "${::home}/.rvm",
+    creates => "${home}/.rvm",
   }
 }
 
 class shunit {
-  vcsrepo { "${::home}/git/home/shunit2":
+  vcsrepo { "${home}/git/home/shunit2":
     ensure   => present,
     provider => git,
     source   => 'https://github.com/kward/shunit2.git',
-    user     => $::me,
+    user     => $me,
   }
   ->
   file { '/usr/local/bin/shunit2':
     ensure => link,
-    target => "${::home}/git/home/shunit2/shunit2",
+    target => "${home}/git/home/shunit2/shunit2",
   }
 }
 
 class diff_highlight {
-  vcsrepo { "${::home}/git/home/scripts":
+  vcsrepo { "${home}/git/home/scripts":
     ensure   => present,
     provider => git,
     source   => 'https://github.com/alexharv074/scripts.git',
-    user     => $::me,
+    user     => $me,
   }
   ->
   file { '/usr/local/bin/DiffHighlight.pl':
     ensure => link,
-    target => "${::home}/git/home/scripts/DiffHighlight.pl",
+    target => "${home}/git/home/scripts/DiffHighlight.pl",
   }
 }
 
@@ -211,11 +211,11 @@ class diff_highlight {
 # Error: /Stage[main]/Python/Vcsrepo[/Users/alexharvey/.pyenv]/ensure: change from 'absent' to 'present' failed: Path /Users/alexharvey/.pyenv exists and is not the desired repository.
 #
 # class python {
-#   vcsrepo { "${::home}/.pyenv":
+#   vcsrepo { "${home}/.pyenv":
 #     ensure   => present,
 #     provider => git,
 #     source   => 'https://github.com/pyenv/pyenv.git',
-#     user     => $::me,
+#     user     => $me,
 #     require  => Pkg['pyenv'],
 #   }
 # }

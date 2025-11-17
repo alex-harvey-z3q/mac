@@ -50,10 +50,14 @@ class brew (
   ) {
 
   exec { 'install homebrew':
-    command     => 'NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
-    environment => ["USER=${me}", "HOME=${home}"],
-    timeout     => 0,
-    creates     => '/opt/homebrew/bin/brew',
+    command => '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
+    environment => [
+      "NONINTERACTIVE=1",
+      "USER=${::me}",
+      "HOME=${::home}",
+    ],
+    timeout => 0,
+    creates => '/opt/homebrew/bin/brew',
   }
   ->
   pkg { $pkgs:

@@ -26,3 +26,5 @@ aws s3 cp dot_aws.tgz  "$s3_base"/dot_aws.tgz
 aws s3 cp dot_ssh.tgz  "$s3_base"/dot_ssh.tgz
 aws s3 cp dot_zsh.tgz  "$s3_base"/dot_zsh.tgz
 aws s3 cp git.tgz      "$s3_base"/git.tgz
+
+aws s3 cp scripts/restore.sh "$s3_base"/restore.sh

@@ -14,9 +14,7 @@ sudo puppet module install puppetlabs-vcsrepo
 
 3. Clone this repo.  It is assumed that this is installed in `/Users/alexharvey/git/home/mac`. (*IF NOT* replace all references in common.yaml.)
 
-4. Link the real hiera.yaml and hieradata files:
-
-5. Double check that these details are applicable to the Mac from [./hieradata/common.yaml](./hieradata/common.yaml):
+4. Double check that these details are applicable to the Mac from [./hieradata/common.yaml](./hieradata/common.yaml):
 
 ```yaml
 ---
@@ -24,6 +22,8 @@ me: alexharvey
 full_me: Alex Harvey
 home: /Users/alexharvey
 ```
+
+5. Link the real hiera.yaml and hieradata files:
 
 ```bash
 sudo bash -c '
@@ -37,22 +37,23 @@ sudo bash -c '
 6. Ensure Puppet is in the path:
 
 ```bash
-export PATH=/opt/puppetlabs/bin:"$PATH"
+export PATH="$PATH":/opt/puppetlabs/bin
 ```
 
-7. Export the laptop password (zsh version):
+(Put it at the end of the path to avoid breaking Ruby.)
+
+7. Export the laptop password (Macs use zsh by default):
 
 ```zsh
 read "FACTER_laptop_password?Enter laptop password: "
 export FACTER_laptop_password
 ```
 
-(Bash version):
+8. Grant passwordless sudo. Create this file:
 
-```bash
-read -rsp "Enter laptop password: " FACTER_laptop_password
-echo
-export FACTER_laptop_password
+```zsh
+# /etc/sudoers.d/homebrew
+alexharvey ALL=(ALL) NOPASSWD: ALL
 ```
 
 8. Finally:

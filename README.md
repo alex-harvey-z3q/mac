@@ -26,10 +26,12 @@ home: /Users/alexharvey
 ```
 
 ```bash
-sudo cd /etc/puppetlabs/puppet && \
-  mv -f hiera.yaml hiera.yaml.orig && \
-  ln -s /Users/alexharvey/git/home/mac/hiera.yaml.real hiera.yaml && \
-  ln -s /Users/alexharvey/git/home/mac/hieradata
+sudo bash -c '
+  cd /etc/puppetlabs/puppet
+  mv -f hiera.yaml hiera.yaml.orig
+  ln -s /Users/alexharvey/git/home/mac/hiera.yaml.real hiera.yaml
+  ln -s /Users/alexharvey/git/home/mac/hieradata hieradata
+'
 ```
 
 6. Ensure Puppet is in the path:

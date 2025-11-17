@@ -13,7 +13,7 @@ cd "$HOME"
 
 set -x
 
-tar -czf documents.tgz Documents
+tar -czf Documents.tgz Documents
 tar -czf dot_aws.tgz .aws
 tar -czf dot_ssh.tgz .ssh
 tar -czf dot_zsh.tgz .zsh*
@@ -21,7 +21,7 @@ tar -czf git.tgz git
 
 s3_base=s3://"$bucket"
 
-aws s3 cp documents.tgz "$s3_base"/documents.tgz
+aws s3 cp Documents.tgz "$s3_base"/Documents.tgz
 aws s3 cp dot_aws.tgz  "$s3_base"/dot_aws.tgz
 aws s3 cp dot_ssh.tgz  "$s3_base"/dot_ssh.tgz
 aws s3 cp dot_zsh.tgz  "$s3_base"/dot_zsh.tgz

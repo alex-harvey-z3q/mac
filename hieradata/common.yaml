@@ -52,6 +52,7 @@ brew::pkgs:
   - htop
   - rbenv
   - ruby-build
+  - diffutils
 
 brew::casks: []
   #- puppetlabs/puppet/pdk - seems to now need a password

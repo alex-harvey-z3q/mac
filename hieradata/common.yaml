@@ -73,6 +73,11 @@ vim::vimplugs:
   groovy: git@github.com:thecodesmith/vim-groovy
   extras: git@github.com:justinmk/vim-syntax-extra.git
 
+# Get these from pyenv install --list
+python::versions:
+  - 3.12.12
+  - 3.11.14
+
 # TODO.
 #
 # App Store apps

@@ -44,6 +44,19 @@ define pkg(
   }
 }
 
+define python::version(
+  String $version = $title,
+  ) {
+
+  exec { "pyenv install ${version}":
+    command => "${home}/.pyenv/bin/pyenv install -s ${version}",
+    unless  => "${home}/.pyenv/bin/pyenv versions --bare | grep -qx ${version}",
+    user    => $me,
+    cwd     => $home,
+    require => Vcsrepo["${home}/.pyenv"],
+  }
+}
+
 class brew (
   Array[String] $pkgs,
   Array[String] $casks,
@@ -212,13 +225,28 @@ class diff_highlight {
   }
 }
 
-class python {
+class python (
+  Array[String] $versions,
+  ) {
+
   vcsrepo { "${home}/.pyenv":
     ensure   => present,
     provider => git,
     source   => 'https://github.com/pyenv/pyenv.git',
     user     => $me,
     require  => Pkg['pyenv'],
+  }
+
+  python::version { $versions: }
+
+  $global_version = $versions[0]
+
+  exec { "pyenv global ${global_version}":
+    command => "${home}/.pyenv/bin/pyenv global ${global_version}",
+    unless  => "${home}/.pyenv/bin/pyenv global | grep -qx ${global_version}",
+    user    => $me,
+    cwd     => $home,
+    require => Python::Version[$global_version],
   }
 }
 

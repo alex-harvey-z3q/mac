@@ -54,6 +54,7 @@ brew::pkgs:
   - ruby-build
   - diffutils
   - gnu-tar
+  - libssh  # Needed by some Ansible.
 
 brew::casks: []
   #- puppetlabs/puppet/pdk - seems to now need a password

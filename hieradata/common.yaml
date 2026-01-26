@@ -53,6 +53,7 @@ brew::pkgs:
   - rbenv
   - ruby-build
   - diffutils
+  - gnu-tar
 
 brew::casks: []
   #- puppetlabs/puppet/pdk - seems to now need a password

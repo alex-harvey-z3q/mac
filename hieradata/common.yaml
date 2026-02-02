@@ -55,6 +55,7 @@ brew::pkgs:
   - diffutils
   - gnu-tar
   - libssh  # Needed by some Ansible.
+  - azure-cli
 
 brew::casks: []
   #- puppetlabs/puppet/pdk - seems to now need a password

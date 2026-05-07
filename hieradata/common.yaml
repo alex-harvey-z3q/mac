@@ -57,6 +57,7 @@ brew::pkgs:
   - libssh  # Needed by some Ansible.
   - azure-cli
   - go
+  - postgresql
 
 brew::casks: []
   #- puppetlabs/puppet/pdk - seems to now need a password

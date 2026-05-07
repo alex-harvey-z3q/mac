@@ -78,6 +78,7 @@ vim::vimplugs:
   ruby: git@github.com:vim-ruby/vim-ruby
   groovy: git@github.com:thecodesmith/vim-groovy
   extras: git@github.com:justinmk/vim-syntax-extra.git
+  bicep: git@github.com:carlsmedstad/vim-bicep.git
 
 # Get these from pyenv install --list
 python::versions:

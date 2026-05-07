@@ -4,9 +4,10 @@ if (! defined('$laptop_password')) {
   fail('export FACTER_laptop_password')
 }
 
-$me      = lookup('me')
-$full_me = lookup('full_me')
-$home    = lookup('home')
+$me          = lookup('me')
+$full_me     = lookup('full_me')
+$home        = lookup('home')
+$github_name = lookup('github_name')
 
 Exec {
   path => '/opt/homebrew/bin:/bin:/usr/bin:/usr/local/bin',
@@ -96,7 +97,7 @@ class dotfiles {
   vcsrepo { "${home}/git/home/dotfiles":
     ensure   => present,
     provider => git,
-    source   => 'git@github.com:alexharv074/dotfiles.git',
+    source   => "git@github.com:${github_name}/dotfiles.git",
     user     => $me,
   }
   ->
@@ -215,7 +216,7 @@ class diff_highlight {
   vcsrepo { "${home}/git/home/scripts":
     ensure   => present,
     provider => git,
-    source   => 'https://github.com/alexharv074/scripts.git',
+    source   => "git@github.com:${github_name}/scripts.git",
     user     => $me,
   }
   ->

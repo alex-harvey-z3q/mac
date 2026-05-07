@@ -2,6 +2,7 @@
 me: alexharvey
 full_me: Alex Harvey
 home: /Users/alexharvey
+github_name: alex-harvey-z3q
 
 shells::shells: |
   # List of acceptable shells for chpass(1).

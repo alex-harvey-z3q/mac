@@ -102,9 +102,22 @@ python::versions:
 # - jre-8u181
 #
 # Chrome
-# - https://gitflic.ru/project/magnolia1234/bypass-paywalls-chrome-clean
+# - Bypass Paywalls
 # - Okta Browser Plugin
 # - AWS Extend Switch Roles
+#
+# Bypass paywalls (initial install and to update later):
+# - Go to: https://gitflic.ru/project/magnolia1234/bypass-paywalls-chrome-clean
+# - Find the text Download this repository as a zip-file from GitFlic - Click on that.
+# - unzip -o ~/Downloads/bypass-paywalls-chrome-clean-master.zip -d ~/
+# - cd ~/bypass-paywalls-chrome-clean-master
+# - Initial install:
+#    git init; git add . # Allow changes to be tracked later
+#   Update:
+#    git st # Check what changed
+#    git add . # If you're happy with it
+#    Go to: chrome://extensions
+#    Click the reload button.
 #
 # SSM plugin https://docs.aws.amazon.com/systems-manager/latest/userguide/install-plugin-macos-overview.html
 #

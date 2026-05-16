@@ -251,7 +251,6 @@ define repo_link(
     unless  => "/usr/bin/git -C ${repo_path} remote get-url origin | /usr/bin/grep -Fxq ${repo_source}",
   }
   ->
-
   vcsrepo { $repo_path:
     ensure   => present,
     provider => git,
@@ -281,7 +280,6 @@ define repo_installer(
     unless  => "/usr/bin/git -C ${repo_path} remote get-url origin | /usr/bin/grep -Fxq ${repo_source}",
   }
   ->
-
   vcsrepo { $repo_path:
     ensure   => present,
     provider => git,

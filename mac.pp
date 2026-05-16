@@ -98,6 +98,17 @@ class brew (
   }
 }
 
+define appstore_app(
+  Integer $id,
+  ) {
+
+  exec { "mas install ${name}":
+    command => "/opt/homebrew/bin/mas install ${id}",
+    unless  => "/opt/homebrew/bin/mas list | /usr/bin/grep -q '^${id} '",
+    require => Pkg['mas'],
+  }
+}
+
 class ssh {
   file { "${home}/.ssh":
     ensure => directory,
@@ -276,7 +287,19 @@ class settings {
   }
 }
 
+class appstore (
+  Hash[String, Integer] $apps,
+  ) {
+
+  $apps.each |$app_name, $id| {
+    appstore_app { $app_name:
+      id => $id,
+    }
+  }
+}
+
 include brew
+include appstore
 include ssh
 include dotfiles
 include shells

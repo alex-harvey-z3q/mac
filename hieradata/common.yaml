@@ -75,6 +75,11 @@ brew::casks:
   #- vagrant
   #- puppetlabs/puppet/pdk - seems to now need a password
 
+appstore::apps:
+  KyPass: 555293879
+  Owly: 882812218
+  WhatsApp: 310633997
+
 vim::vimplugs:
   puppet: git@github.com:rodjek/vim-puppet.git
   jinja2: git@github.com:lepture/vim-jinja.git
@@ -98,11 +103,6 @@ python::versions:
   - 3.11.14
 
 # TODO.
-#
-# App Store apps
-# - KyPass
-# - Owly
-# - WhatsApp
 #
 # DMG file apps
 # - Puppet

@@ -298,8 +298,47 @@ class appstore (
   }
 }
 
+class chrome (
+  Hash[String, String] $extensions,
+  ) {
+
+  $extension_update_url = 'https://clients2.google.com/service/update2/crx'
+  $extension_forcelist_entries = $extensions.map |$name, $id| {
+    "    <string>${id};${extension_update_url}</string>"
+  }
+  $extension_forcelist = $extension_forcelist_entries.join("\n")
+
+  file { '/Library/Managed Preferences':
+    ensure => directory,
+    owner  => root,
+    group  => wheel,
+    mode   => '0755',
+  }
+
+  file { '/Library/Managed Preferences/com.google.Chrome.plist':
+    ensure  => file,
+    owner   => root,
+    group   => wheel,
+    mode    => '0644',
+    require => File['/Library/Managed Preferences'],
+    content => @(PLIST/L),
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+        <key>ExtensionInstallForcelist</key>
+        <array>
+      ${extension_forcelist}
+        </array>
+      </dict>
+      </plist>
+      | PLIST
+  }
+}
+
 include brew
 include appstore
+include chrome
 include ssh
 include dotfiles
 include shells

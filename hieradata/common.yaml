@@ -81,6 +81,11 @@ appstore::apps:
   Owly: 882812218
   WhatsApp: 310633997
 
+chrome::extensions:
+  # Find IDs from the final path segment in the Chrome Web Store URL.
+  Okta Browser Plugin: glnpjglilkicbckjpbgcfkogebgllemb
+  AWS Extend Switch Roles: jpmkfafbacpgapdghgdpembnojdlgkdl
+
 vim::vimplugs:
   puppet: git@github.com:rodjek/vim-puppet.git
   jinja2: git@github.com:lepture/vim-jinja.git
@@ -111,8 +116,6 @@ python::versions:
 #
 # Chrome
 # - Bypass Paywalls
-# - Okta Browser Plugin
-# - AWS Extend Switch Roles
 #
 # Bypass paywalls (initial install and to update later):
 # - Go to: https://gitflic.ru/project/magnolia1234/bypass-paywalls-chrome-clean

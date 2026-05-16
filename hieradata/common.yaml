@@ -67,6 +67,7 @@ brew::casks:
   # Enable the terminal app running Puppet if prompted.
   - docker-desktop
   - google-chrome
+  - session-manager-plugin
   - signal
   - windows-app
   #- firefox  # I don't want these by default.
@@ -124,7 +125,3 @@ python::versions:
 #    Go to: chrome://extensions
 #    Click the reload button.
 #
-# SSM plugin https://docs.aws.amazon.com/systems-manager/latest/userguide/install-plugin-macos-overview.html
-#
-# Settings > Mission Control > uncheck "Automatically rearrange Spaces"
-# Settings > General > Recent items: None

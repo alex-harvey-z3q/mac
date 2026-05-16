@@ -264,6 +264,18 @@ class python (
   }
 }
 
+class settings {
+  exec { 'disable mission control space rearranging':
+    command => '/usr/bin/defaults write com.apple.dock mru-spaces -bool false && /usr/bin/killall Dock',
+    unless  => '/usr/bin/defaults read com.apple.dock mru-spaces | /usr/bin/grep -qx 0',
+  }
+
+  exec { 'disable recent items':
+    command => '/usr/bin/defaults write NSGlobalDomain NSRecentDocumentsLimit -int 0',
+    unless  => '/usr/bin/defaults read NSGlobalDomain NSRecentDocumentsLimit | /usr/bin/grep -qx 0',
+  }
+}
+
 include brew
 include ssh
 include dotfiles
@@ -273,6 +285,7 @@ include ruby
 include shunit
 include diff_highlight
 include python
+include settings
 
 # TODO
 # - mdtoc.rb

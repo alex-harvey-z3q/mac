@@ -83,7 +83,7 @@ class brew (
   }
   ->
   # Open the privacy pane once before installing casks that may need
-  # App Management approval, then continue on the assumption the user has
+  # App Management approval, then continue on the assumption that I have
   # granted access.
   exec { 'open app management settings':
     command   => "/bin/mkdir -p ${home}/.cache/puppet && /usr/bin/open \"x-apple.systempreferences:com.apple.preference.security?Privacy_AppBundles\" && /usr/bin/touch ${app_management_marker}",

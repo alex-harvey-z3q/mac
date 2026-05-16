@@ -119,8 +119,8 @@ vim::vimplugs:
   extras: git@github.com:justinmk/vim-syntax-extra.git
   bicep: git@github.com:carlsmedstad/vim-bicep.git
 
-# Get these from pyenv install --list
 python::versions:
+  # Get these from pyenv install --list
   - 3.12.12
   - 3.11.14
 
@@ -129,9 +129,6 @@ python::versions:
 # DMG file apps
 # - Puppet
 # - jre-8u181
-#
-# Chrome
-# - Bypass Paywalls
 #
 # Bypass paywalls (initial install and to update later):
 # - Go to: https://gitflic.ru/project/magnolia1234/bypass-paywalls-chrome-clean

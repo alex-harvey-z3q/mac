@@ -13,7 +13,7 @@ Exec {
   path => '/opt/homebrew/bin:/bin:/usr/bin:/usr/local/bin',
   user => $me,
   cwd  => $home,
-  environment => ["HOME=$home"],
+  environment => ["HOME=${home}"],
 }
 
 define pkg(
@@ -23,24 +23,27 @@ define pkg(
 
   case $provider {
     'brew': {
-      exec { "brew install $name":
-        unless => "brew list $name",
+      exec { "brew install ${name}":
+        unless => "brew list ${name}",
       }
     }
     'brewcask': {
-      exec { "brew install --cask $name":
-        unless => "brew list --cask $name",
+      exec { "brew install --cask ${name}":
+        unless => "brew list --cask ${name}",
       }
     }
     'pip': {
-      exec { "pip install $name":
-        unless => "pip show $name",
+      exec { "pip install ${name}":
+        unless => "pip show ${name}",
       }
     }
     'rvm': {
-      exec { "rvm install ruby-$name":
-        unless => "rvm list | grep -q ruby-$name",
+      exec { "rvm install ruby-${name}":
+        unless => "rvm list | grep -q ruby-${name}",
       }
+    }
+    default: {
+      fail("Unsupported package provider ${provider}")
     }
   }
 }
@@ -64,35 +67,36 @@ class brew (
   ) {
 
   $app_management_marker = "${home}/.cache/puppet/app-management-settings-opened"
+  $app_management_url = 'x-apple.systempreferences:com.apple.preference.security?Privacy_AppBundles'
   $cask_check = "/bin/sh -c 'for cask in ${casks.join(' ')}; do brew list --cask \"\$cask\" >/dev/null 2>&1 || exit 1; done'"
 
   exec { 'install homebrew':
-    command => '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
+    command     => '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
     environment => [
-      "NONINTERACTIVE=1",
-      "USER=${::me}",
-      "HOME=${::home}",
+      'NONINTERACTIVE=1',
+      "USER=${facts['me']}",
+      "HOME=${facts['home']}",
     ],
-    timeout => 0,
-    creates => '/opt/homebrew/bin/brew',
+    timeout     => 0,
+    creates     => '/opt/homebrew/bin/brew',
   }
-  ->
-  pkg { $pkgs:
+
+  -> pkg { $pkgs:
     ensure   => present,
     provider => 'brew',
   }
-  ->
+
   # Open the privacy pane once before installing casks that may need
   # App Management approval, then continue on the assumption that I have
   # granted access.
-  exec { 'open app management settings':
-    command   => "/bin/mkdir -p ${home}/.cache/puppet && /usr/bin/open \"x-apple.systempreferences:com.apple.preference.security?Privacy_AppBundles\" && /usr/bin/touch ${app_management_marker}",
+  -> exec { 'open app management settings':
+    command   => "mkdir -p ${home}/.cache/puppet && open \"${app_management_url}\" && touch ${app_management_marker}",
     creates   => $app_management_marker,
     unless    => $cask_check,
     logoutput => true,
   }
-  ->
-  pkg { $casks:
+
+  -> pkg { $casks:
     ensure   => present,
     provider => 'brewcask',
   }
@@ -124,8 +128,8 @@ class dotfiles {
     source   => "git@github.com:${github_name}/dotfiles.git",
     user     => $me,
   }
-  ->
-  exec { 'dotfiles':
+
+  -> exec { 'dotfiles':
     command => 'bash git/home/dotfiles/install.sh',
     unless  => "ls -la ${home} | grep -q git/home/dotfiles",
     require => Vcsrepo["${home}/git/home/dotfiles"],
@@ -146,11 +150,11 @@ class shells (
 
 class shells::bash {
   pkg { ['bash', 'bash-completion']:
-    ensure => present,
+    ensure   => present,
     provider => 'brew',
   }
-  ->
-  exec { 'link-bash':
+
+  -> exec { 'link-bash':
     command => 'brew link bash',
     creates => '/opt/homebrew/bin/bash',
   }
@@ -205,7 +209,7 @@ class vim (
   }
 
   $vimplugs.each |$dir, $source| {
-    vcsrepo { "${home}/.vim/bundle/$dir":
+    vcsrepo { "${home}/.vim/bundle/${dir}":
       ensure   => present,
       provider => git,
       source   => $source,
@@ -229,8 +233,8 @@ class shunit {
     source   => 'https://github.com/kward/shunit2.git',
     user     => $me,
   }
-  ->
-  file { '/usr/local/bin/shunit2':
+
+  -> file { '/usr/local/bin/shunit2':
     ensure => link,
     target => "${home}/git/home/shunit2/shunit2",
   }
@@ -248,8 +252,8 @@ define github_repo(
     onlyif  => "/bin/test -d ${repo_path}/.git",
     unless  => "/usr/bin/git -C ${repo_path} remote get-url origin | /usr/bin/grep -Fxq ${repo_source}",
   }
-  ->
-  vcsrepo { $repo_path:
+
+  -> vcsrepo { $repo_path:
     ensure   => present,
     provider => git,
     source   => $repo_source,

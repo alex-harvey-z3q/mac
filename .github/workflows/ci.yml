@@ -1,0 +1,41 @@
+---
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  puppet:
+    runs-on: macos-15
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v5
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Install Puppet module dependencies
+        run: bundle exec puppet module install puppetlabs-vcsrepo --target-dir .puppet/modules
+
+      - name: Lint Puppet code
+        run: bundle exec rake lint
+
+      - name: Check syntax
+        run: bundle exec rake syntax
+
+      - name: Validate manifest
+        run: bundle exec puppet parser validate --modulepath .puppet/modules mac.pp
+
+      - name: Compile catalog with CI data
+        run: |
+          FACTER_laptop_password=dummy \
+            bundle exec puppet apply \
+              --noop \
+              --modulepath .puppet/modules \
+              --hiera_config .github/hiera-ci.yaml \
+              mac.pp

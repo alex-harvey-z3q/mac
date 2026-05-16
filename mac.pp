@@ -236,17 +236,70 @@ class shunit {
   }
 }
 
-class diff_highlight {
-  vcsrepo { "${home}/git/home/scripts":
+define repo_link(
+  String $repo,
+  String $source,
+  String $target,
+  ) {
+
+  $repo_path = "${home}/git/home/${repo}"
+
+  vcsrepo { $repo_path:
     ensure   => present,
     provider => git,
-    source   => "git@github.com:${github_name}/scripts.git",
+    source   => "git@github.com:${github_name}/${repo}.git",
     user     => $me,
   }
-  ->
-  file { '/usr/local/bin/DiffHighlight.pl':
-    ensure => link,
-    target => "${home}/git/home/scripts/DiffHighlight.pl",
+
+  file { $target:
+    ensure  => link,
+    target  => "${repo_path}/${source}",
+    require => Vcsrepo[$repo_path],
+  }
+}
+
+define repo_installer(
+  String $repo,
+  String $command,
+  String $creates,
+  ) {
+
+  $repo_path = "${home}/git/home/${repo}"
+
+  vcsrepo { $repo_path:
+    ensure   => present,
+    provider => git,
+    source   => "git@github.com:${github_name}/${repo}.git",
+    user     => $me,
+  }
+
+  exec { "install ${title}":
+    command => $command,
+    cwd     => $repo_path,
+    creates => $creates,
+    require => Vcsrepo[$repo_path],
+  }
+}
+
+class repo_links (
+  Hash[String, Hash] $links,
+  ) {
+
+  $links.each |$link_name, $params| {
+    repo_link { $link_name:
+      * => $params,
+    }
+  }
+}
+
+class repo_installers (
+  Hash[String, Hash] $installers,
+  ) {
+
+  $installers.each |$installer_name, $params| {
+    repo_installer { $installer_name:
+      * => $params,
+    }
   }
 }
 
@@ -345,13 +398,9 @@ include shells
 include vim
 include ruby
 include shunit
-include diff_highlight
+include repo_links
+include repo_installers
 include python
 include settings
-
-# TODO
-# - mdtoc.rb
-# - AWS CLI scripts
-#
 
 # vim:ft=puppet

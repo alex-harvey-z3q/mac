@@ -86,6 +86,22 @@ chrome::extensions:
   Okta Browser Plugin: glnpjglilkicbckjpbgcfkogebgllemb
   AWS Extend Switch Roles: jpmkfafbacpgapdghgdpembnojdlgkdl
 
+repo_links::links:
+  DiffHighlight.pl:
+    repo: scripts
+    source: DiffHighlight.pl
+    target: /usr/local/bin/DiffHighlight.pl
+  mdtoc.rb:
+    repo: markdown_toc
+    source: mdtoc.rb
+    target: /usr/local/bin/mdtoc.rb
+
+repo_installers::installers:
+  aws_cli_scripts:
+    repo: aws-cli-scripts
+    command: ./install.sh -l
+    creates: /usr/local/bin/assume_role.sh
+
 vim::vimplugs:
   puppet: git@github.com:rodjek/vim-puppet.git
   jinja2: git@github.com:lepture/vim-jinja.git
@@ -129,4 +145,3 @@ python::versions:
 #    git add . # If you're happy with it
 #    Go to: chrome://extensions
 #    Click the reload button.
-#

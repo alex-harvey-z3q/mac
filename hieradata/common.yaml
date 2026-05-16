@@ -36,6 +36,7 @@ brew::pkgs:
   - gnu-sed
   - gawk
   - make
+  - mas
   - cookiecutter
   - node
   - kubectl

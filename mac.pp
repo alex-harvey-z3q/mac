@@ -236,10 +236,8 @@ class shunit {
   }
 }
 
-define repo_link(
+define github_repo(
   String $repo,
-  String $source,
-  String $target,
   ) {
 
   $repo_path = "${home}/git/home/${repo}"
@@ -257,11 +255,24 @@ define repo_link(
     source   => $repo_source,
     user     => $me,
   }
+}
+
+define repo_link(
+  String $repo,
+  String $source,
+  String $target,
+  ) {
+
+  $repo_path = "${home}/git/home/${repo}"
+
+  github_repo { $repo:
+    repo => $repo,
+  }
 
   file { $target:
     ensure  => link,
     target  => "${repo_path}/${source}",
-    require => Vcsrepo[$repo_path],
+    require => Github_repo[$repo],
   }
 }
 
@@ -272,26 +283,16 @@ define repo_installer(
   ) {
 
   $repo_path = "${home}/git/home/${repo}"
-  $repo_source = "git@github.com:${github_name}/${repo}.git"
 
-  exec { "set origin for ${title}":
-    command => "/usr/bin/git -C ${repo_path} remote set-url origin ${repo_source}",
-    onlyif  => "/bin/test -d ${repo_path}/.git",
-    unless  => "/usr/bin/git -C ${repo_path} remote get-url origin | /usr/bin/grep -Fxq ${repo_source}",
-  }
-  ->
-  vcsrepo { $repo_path:
-    ensure   => present,
-    provider => git,
-    source   => $repo_source,
-    user     => $me,
+  github_repo { $repo:
+    repo => $repo,
   }
 
   exec { "install ${title}":
     command => "/bin/bash ${repo_path}/${command}",
     cwd     => $repo_path,
     creates => $creates,
-    require => Vcsrepo[$repo_path],
+    require => Github_repo[$repo],
   }
 }
 

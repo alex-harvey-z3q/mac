@@ -29,7 +29,7 @@ define pkg(
     }
     'brewcask': {
       exec { "brew install --cask $name":
-        unless => "brew casks | grep -qw $name",
+        unless => "brew list --cask $name",
       }
     }
     'pip': {
@@ -63,6 +63,9 @@ class brew (
   Array[String] $casks,
   ) {
 
+  $app_management_marker = "${home}/.cache/puppet/app-management-settings-opened"
+  $cask_check = "/bin/sh -c 'for cask in ${casks.join(' ')}; do brew list --cask \"\$cask\" >/dev/null 2>&1 || exit 1; done'"
+
   exec { 'install homebrew':
     command => '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
     environment => [
@@ -77,6 +80,16 @@ class brew (
   pkg { $pkgs:
     ensure   => present,
     provider => 'brew',
+  }
+  ->
+  # Open the privacy pane once before installing casks that may need
+  # App Management approval, then continue on the assumption the user has
+  # granted access.
+  exec { 'open app management settings':
+    command   => "/bin/mkdir -p ${home}/.cache/puppet && /usr/bin/open \"x-apple.systempreferences:com.apple.preference.security?Privacy_AppBundles\" && /usr/bin/touch ${app_management_marker}",
+    creates   => $app_management_marker,
+    unless    => $cask_check,
+    logoutput => true,
   }
   ->
   pkg { $casks:

@@ -60,7 +60,17 @@ brew::pkgs:
   - go
   - postgresql
 
-brew::casks: []
+brew::casks:
+  # On first run, macOS may require App Management approval before Homebrew
+  # can adopt/update casks. This opens the right Settings pane:
+  #   open "x-apple.systempreferences:com.apple.preference.security?Privacy_AppBundles"
+  # Enable the terminal app running Puppet if prompted.
+  - docker-desktop
+  - google-chrome
+  - signal
+  - windows-app
+  #- firefox  # I don't want these by default.
+  #- vagrant
   #- puppetlabs/puppet/pdk - seems to now need a password
 
 vim::vimplugs:
@@ -90,15 +100,10 @@ python::versions:
 # App Store apps
 # - KyPass
 # - Owly
-# - Windows App (formerly Microsoft Remote Desktop)
 # - WhatsApp
 #
 # DMG file apps
 # - Puppet
-# - Firefox
-# - Chrome
-# - Docker
-# - Vagrant
 # - jre-8u181
 #
 # Chrome
@@ -120,8 +125,6 @@ python::versions:
 #    Click the reload button.
 #
 # SSM plugin https://docs.aws.amazon.com/systems-manager/latest/userguide/install-plugin-macos-overview.html
-#
-# Signal https://signal.org/download/macos/
 #
 # Settings > Mission Control > uncheck "Automatically rearrange Spaces"
 # Settings > General > Recent items: None

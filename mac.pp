@@ -243,11 +243,19 @@ define repo_link(
   ) {
 
   $repo_path = "${home}/git/home/${repo}"
+  $repo_source = "git@github.com:${github_name}/${repo}.git"
+
+  exec { "set origin for ${title}":
+    command => "/usr/bin/git -C ${repo_path} remote set-url origin ${repo_source}",
+    onlyif  => "/bin/test -d ${repo_path}/.git",
+    unless  => "/usr/bin/git -C ${repo_path} remote get-url origin | /usr/bin/grep -Fxq ${repo_source}",
+  }
+  ->
 
   vcsrepo { $repo_path:
     ensure   => present,
     provider => git,
-    source   => "git@github.com:${github_name}/${repo}.git",
+    source   => $repo_source,
     user     => $me,
   }
 
@@ -265,16 +273,24 @@ define repo_installer(
   ) {
 
   $repo_path = "${home}/git/home/${repo}"
+  $repo_source = "git@github.com:${github_name}/${repo}.git"
+
+  exec { "set origin for ${title}":
+    command => "/usr/bin/git -C ${repo_path} remote set-url origin ${repo_source}",
+    onlyif  => "/bin/test -d ${repo_path}/.git",
+    unless  => "/usr/bin/git -C ${repo_path} remote get-url origin | /usr/bin/grep -Fxq ${repo_source}",
+  }
+  ->
 
   vcsrepo { $repo_path:
     ensure   => present,
     provider => git,
-    source   => "git@github.com:${github_name}/${repo}.git",
+    source   => $repo_source,
     user     => $me,
   }
 
   exec { "install ${title}":
-    command => $command,
+    command => "/bin/bash ${repo_path}/${command}",
     cwd     => $repo_path,
     creates => $creates,
     require => Vcsrepo[$repo_path],

@@ -54,7 +54,8 @@ define python::version(
 
   exec { "pyenv install ${version}":
     command => "${home}/.pyenv/bin/pyenv install -s ${version}",
-    unless  => "${home}/.pyenv/bin/pyenv versions --bare | grep -qx ${version}",
+    unless  => "${home}/.pyenv/bin/pyenv versions --bare | /usr/bin/grep -qx ${version}",
+    onlyif  => "/bin/test -x ${home}/.pyenv/bin/pyenv",
     user    => $me,
     cwd     => $home,
     require => Vcsrepo["${home}/.pyenv"],
@@ -109,6 +110,7 @@ define appstore_app(
   exec { "mas install ${name}":
     command => "/opt/homebrew/bin/mas install ${id}",
     unless  => "/opt/homebrew/bin/mas list | /usr/bin/grep -q '^${id} '",
+    onlyif  => '/bin/test -x /opt/homebrew/bin/mas',
     require => Pkg['mas'],
   }
 }
@@ -340,7 +342,8 @@ class python (
 
   exec { "pyenv global ${global_version}":
     command => "${home}/.pyenv/bin/pyenv global ${global_version}",
-    unless  => "${home}/.pyenv/bin/pyenv global | grep -qx ${global_version}",
+    unless  => "${home}/.pyenv/bin/pyenv global | /usr/bin/grep -qx ${global_version}",
+    onlyif  => "/bin/test -x ${home}/.pyenv/bin/pyenv",
     user    => $me,
     cwd     => $home,
     require => Python::Version[$global_version],

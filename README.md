@@ -1,10 +1,10 @@
-# My MacBook Pro Config
+# MacBook Config
 
-This contains Puppet code that configures my MacBook Pro.
+This contains Puppet code that configures my MacBook.
 
 # Usage
 
-1. Install the Mac OS X Puppet Agent.
+1. Install the MacOS Puppet Agent.
 
 2. Then, install the vcsrepo module:
 
@@ -12,7 +12,7 @@ This contains Puppet code that configures my MacBook Pro.
 sudo puppet module install puppetlabs-vcsrepo
 ```
 
-3. Clone this repo.  It is assumed that this is installed in `/Users/alexharvey/git/home/mac`. (*IF NOT* replace all references in common.yaml.)
+3. Clone this repo. It is assumed that this is installed in `/Users/alexharvey/git/home/mac`. (*IF NOT* replace all references in common.yaml.)
 
 4. Double check that these details are applicable to the Mac from [./hieradata/common.yaml](./hieradata/common.yaml):
 

@@ -53,9 +53,8 @@ define python::version(
   ) {
 
   exec { "pyenv install ${version}":
-    command => "${home}/.pyenv/bin/pyenv install -s ${version}",
-    unless  => "${home}/.pyenv/bin/pyenv versions --bare | /usr/bin/grep -qx ${version}",
-    onlyif  => "/bin/test -x ${home}/.pyenv/bin/pyenv",
+    command => "/bin/sh -c '${home}/.pyenv/bin/pyenv install -s ${version}'",
+    onlyif  => "/bin/sh -c '/bin/test -x ${home}/.pyenv/bin/pyenv && ! ${home}/.pyenv/bin/pyenv versions --bare | /usr/bin/grep -qx ${version}'",
     user    => $me,
     cwd     => $home,
     require => Vcsrepo["${home}/.pyenv"],
@@ -108,9 +107,8 @@ define appstore_app(
   ) {
 
   exec { "mas install ${name}":
-    command => "/opt/homebrew/bin/mas install ${id}",
-    unless  => "/opt/homebrew/bin/mas list | /usr/bin/grep -q '^${id} '",
-    onlyif  => '/bin/test -x /opt/homebrew/bin/mas',
+    command => "/bin/sh -c '/opt/homebrew/bin/mas install ${id}'",
+    onlyif  => "/bin/sh -c '/bin/test -x /opt/homebrew/bin/mas && ! /opt/homebrew/bin/mas list | /usr/bin/grep -q \"^${id} \"'",
     require => Pkg['mas'],
   }
 }
@@ -341,9 +339,8 @@ class python (
   $global_version = $versions[0]
 
   exec { "pyenv global ${global_version}":
-    command => "${home}/.pyenv/bin/pyenv global ${global_version}",
-    unless  => "${home}/.pyenv/bin/pyenv global | /usr/bin/grep -qx ${global_version}",
-    onlyif  => "/bin/test -x ${home}/.pyenv/bin/pyenv",
+    command => "/bin/sh -c '${home}/.pyenv/bin/pyenv global ${global_version}'",
+    onlyif  => "/bin/sh -c '/bin/test -x ${home}/.pyenv/bin/pyenv && ! ${home}/.pyenv/bin/pyenv global | /usr/bin/grep -qx ${global_version}'",
     user    => $me,
     cwd     => $home,
     require => Python::Version[$global_version],

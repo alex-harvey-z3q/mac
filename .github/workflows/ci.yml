@@ -33,9 +33,21 @@ jobs:
 
       - name: Compile catalog with CI data
         run: |
+          set +e
+
           FACTER_laptop_password=dummy \
-            bundle exec puppet apply \
-              --noop \
-              --modulepath .puppet/modules \
-              --hiera_config .github/hiera-ci.yaml \
-              mac.pp
+          bundle exec puppet apply \
+            --detailed-exitcodes \
+            --noop \
+            --modulepath .puppet/modules \
+            --hiera_config .github/hiera-ci.yaml \
+            mac.pp
+
+          puppet_exit=$?
+
+          set -e
+
+          case "$puppet_exit" in
+            0|2) exit 0 ;;
+            *) exit "$puppet_exit" ;;
+          esac

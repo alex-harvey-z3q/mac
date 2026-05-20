@@ -60,6 +60,8 @@ brew::pkgs:
   - azure-cli
   - go
   - postgresql
+  - lilypond  # Music software.
+  - ghostscript  # Used to rasterize LilyPond PDFs.
 
 brew::casks:
   # On first run, macOS may require App Management approval before Homebrew

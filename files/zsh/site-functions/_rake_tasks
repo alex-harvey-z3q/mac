@@ -1,0 +1,35 @@
+#autoload
+
+local -a task_lines tasks
+
+if [[ -f Gemfile ]] && (( $+commands[rbenv] )) && (( $+commands[bundle] )); then
+  task_lines=("${(@f)$(rbenv exec bundle exec rake -AT 2>/dev/null)}")
+fi
+
+if (( ! ${#task_lines} )) && [[ -f Gemfile ]] && (( $+commands[bundle] )); then
+  task_lines=("${(@f)$(bundle exec rake -AT 2>/dev/null)}")
+fi
+
+if (( ! ${#task_lines} )) && (( $+commands[rbenv] )); then
+  task_lines=("${(@f)$(rbenv exec rake -AT 2>/dev/null)}")
+fi
+
+if (( ! ${#task_lines} )); then
+  task_lines=("${(@f)$(rake -AT 2>/dev/null)}")
+fi
+
+tasks=("${(@f)$(/usr/bin/printf '%s\n' "${task_lines[@]}" | /usr/bin/awk '
+  /^rake[[:space:]]+/ {
+    sub(/^rake[[:space:]]+/, "")
+    split($0, parts, /[[:space:]]+#/)
+    task = parts[1]
+    desc = parts[2]
+    sub(/^[[:space:]]+/, "", desc)
+
+    if (task != "") {
+      print task ":" desc
+    }
+  }
+' | /usr/bin/sort -u)}")
+
+(( ${#tasks} )) && _describe -t rake-tasks "rake task" tasks

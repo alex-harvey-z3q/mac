@@ -1,0 +1,34 @@
+#compdef bundle
+
+local -a bundle_commands
+
+if (( CURRENT == 2 )); then
+  bundle_commands=(
+    "exec:run a command in the bundle context"
+    "install:install dependencies"
+    "update:update dependencies"
+    "config:manage Bundler configuration"
+    "console:start an IRB session in the bundle context"
+    "open:open an installed gem"
+    "show:show gem information"
+  )
+  _describe -t bundle-commands "bundle command" bundle_commands
+  return
+fi
+
+if [[ "${words[2]}" != exec ]]; then
+  return 1
+fi
+
+if (( CURRENT == 3 )); then
+  compadd rake
+  return
+fi
+
+if [[ "${words[3]}" == rake ]]; then
+  autoload -Uz _rake_tasks
+  _rake_tasks
+  return
+fi
+
+return 1

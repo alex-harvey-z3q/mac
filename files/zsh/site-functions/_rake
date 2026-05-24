@@ -1,0 +1,4 @@
+#compdef rake
+
+autoload -Uz _rake_tasks
+_rake_tasks

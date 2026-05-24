@@ -12,7 +12,7 @@ This contains Puppet code that configures my MacBook.
 sudo puppet module install puppetlabs-vcsrepo
 ```
 
-3. Clone this repo. It is assumed that this is installed in `/Users/alexharvey/git/home/mac`. (*IF NOT* replace all references in common.yaml.)
+3. Clone this repo. It is assumed that this is installed in `/Users/alexharvey/git/home/mac`. (*IF NOT* update `home` and `git_home` in common.yaml.)
 
 4. Double check that these details are applicable to the Mac from [./hieradata/common.yaml](./hieradata/common.yaml):
 

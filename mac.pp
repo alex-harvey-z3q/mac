@@ -7,6 +7,7 @@ if (! defined('$laptop_password')) {
 $me          = lookup('me')
 $full_me     = lookup('full_me')
 $home        = lookup('home')
+$git_home    = lookup('git_home')
 $github_name = lookup('github_name')
 
 Exec {
@@ -122,7 +123,7 @@ class ssh {
 }
 
 class dotfiles {
-  vcsrepo { "${home}/git/home/dotfiles":
+  vcsrepo { "${git_home}/dotfiles":
     ensure   => present,
     provider => git,
     source   => "git@github.com:${github_name}/dotfiles.git",
@@ -130,9 +131,10 @@ class dotfiles {
   }
 
   -> exec { 'dotfiles':
-    command => 'bash git/home/dotfiles/install.sh',
-    unless  => "ls -la ${home} | grep -q git/home/dotfiles",
-    require => Vcsrepo["${home}/git/home/dotfiles"],
+    command => "/bin/bash ${git_home}/dotfiles/install.sh",
+    cwd     => $home,
+    creates => "${home}/.gitconfig",
+    require => Vcsrepo["${git_home}/dotfiles"],
   }
 }
 
@@ -160,7 +162,9 @@ class shells::bash {
   }
 }
 
-class shells::zsh {
+class shells::zsh (
+  String $repo_root = "${git_home}/mac",
+  ) {
   pkg { ['zsh', 'zsh-completions']:
     ensure   => present,
     provider => 'brew',
@@ -171,98 +175,13 @@ class shells::zsh {
     mode   => '0755',
   }
 
-  file { '/usr/local/share/zsh/site-functions/_rake':
-    ensure  => file,
-    mode    => '0644',
-    content => '#compdef rake
-
-autoload -Uz _rake_tasks
-_rake_tasks
-',
-    require => File['/usr/local/share/zsh/site-functions'],
-  }
-
-  file { '/usr/local/share/zsh/site-functions/_bundle':
-    ensure  => file,
-    mode    => '0644',
-    content => '#compdef bundle
-
-local -a bundle_commands
-
-if (( CURRENT == 2 )); then
-  bundle_commands=(
-    "exec:run a command in the bundle context"
-    "install:install dependencies"
-    "update:update dependencies"
-    "config:manage Bundler configuration"
-    "console:start an IRB session in the bundle context"
-    "open:open an installed gem"
-    "show:show gem information"
-  )
-  _describe -t bundle-commands "bundle command" bundle_commands
-  return
-fi
-
-if [[ "${words[2]}" != exec ]]; then
-  return 1
-fi
-
-if (( CURRENT == 3 )); then
-  compadd rake
-  return
-fi
-
-if [[ "${words[3]}" == rake ]]; then
-  autoload -Uz _rake_tasks
-  _rake_tasks
-  return
-fi
-
-return 1
-',
-    require => File['/usr/local/share/zsh/site-functions'],
-  }
-
-  file { '/usr/local/share/zsh/site-functions/_rake_tasks':
-    ensure  => file,
-    mode    => '0644',
-    content => '#autoload
-
-local -a task_lines tasks
-
-if [[ -f Gemfile ]] && (( $+commands[rbenv] )) && (( $+commands[bundle] )); then
-  task_lines=("${(@f)$(rbenv exec bundle exec rake -AT 2>/dev/null)}")
-fi
-
-if (( ! ${#task_lines} )) && [[ -f Gemfile ]] && (( $+commands[bundle] )); then
-  task_lines=("${(@f)$(bundle exec rake -AT 2>/dev/null)}")
-fi
-
-if (( ! ${#task_lines} )) && (( $+commands[rbenv] )); then
-  task_lines=("${(@f)$(rbenv exec rake -AT 2>/dev/null)}")
-fi
-
-if (( ! ${#task_lines} )); then
-  task_lines=("${(@f)$(rake -AT 2>/dev/null)}")
-fi
-
-tasks=("${(@f)$(/usr/bin/printf \'%s\n\' "${task_lines[@]}" | /usr/bin/awk \'
-  /^rake[[:space:]]+/ {
-    sub(/^rake[[:space:]]+/, "")
-    split($0, parts, /[[:space:]]+#/)
-    task = parts[1]
-    desc = parts[2]
-    sub(/^[[:space:]]+/, "", desc)
-
-    if (task != "") {
-      print task ":" desc
+  ['_rake', '_bundle', '_rake_tasks'].each |$completion| {
+    file { "/usr/local/share/zsh/site-functions/${completion}":
+      ensure  => file,
+      mode    => '0644',
+      source  => "file://${repo_root}/files/zsh/site-functions/${completion}",
+      require => File['/usr/local/share/zsh/site-functions'],
     }
-  }
-\' | /usr/bin/sort -u)}")
-
-(( ${#tasks} )) && _describe -t rake-tasks "rake task" tasks
-',
-    require => File['/usr/local/share/zsh/site-functions'],
   }
 
 # I don't think I want this any more:
@@ -326,7 +245,7 @@ class ruby {
 }
 
 class shunit {
-  vcsrepo { "${home}/git/home/shunit2":
+  vcsrepo { "${git_home}/shunit2":
     ensure   => present,
     provider => git,
     source   => 'https://github.com/kward/shunit2.git',
@@ -335,7 +254,7 @@ class shunit {
 
   -> file { '/usr/local/bin/shunit2':
     ensure => link,
-    target => "${home}/git/home/shunit2/shunit2",
+    target => "${git_home}/shunit2/shunit2",
   }
 }
 
@@ -343,7 +262,7 @@ define github_repo(
   String $repo,
   ) {
 
-  $repo_path = "${home}/git/home/${repo}"
+  $repo_path = "${git_home}/${repo}"
   $repo_source = "git@github.com:${github_name}/${repo}.git"
 
   exec { "set origin for ${title}":
@@ -366,7 +285,7 @@ define repo_link(
   String $target,
   ) {
 
-  $repo_path = "${home}/git/home/${repo}"
+  $repo_path = "${git_home}/${repo}"
 
   github_repo { $repo:
     repo => $repo,
@@ -385,7 +304,7 @@ define repo_installer(
   String $creates,
   ) {
 
-  $repo_path = "${home}/git/home/${repo}"
+  $repo_path = "${git_home}/${repo}"
 
   github_repo { $repo:
     repo => $repo,

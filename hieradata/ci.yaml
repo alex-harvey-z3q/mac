@@ -2,6 +2,7 @@
 me: runner
 full_me: GitHub Actions Runner
 home: /Users/runner
+git_home: /Users/runner/work/mac
 github_name: alex-harvey-z3q
 
 shells::shells: |

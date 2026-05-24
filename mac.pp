@@ -166,6 +166,105 @@ class shells::zsh {
     provider => 'brew',
   }
 
+  file { ['/usr/local/share/zsh', '/usr/local/share/zsh/site-functions']:
+    ensure => directory,
+    mode   => '0755',
+  }
+
+  file { '/usr/local/share/zsh/site-functions/_rake':
+    ensure  => file,
+    mode    => '0644',
+    content => '#compdef rake
+
+autoload -Uz _rake_tasks
+_rake_tasks
+',
+    require => File['/usr/local/share/zsh/site-functions'],
+  }
+
+  file { '/usr/local/share/zsh/site-functions/_bundle':
+    ensure  => file,
+    mode    => '0644',
+    content => '#compdef bundle
+
+local -a bundle_commands
+
+if (( CURRENT == 2 )); then
+  bundle_commands=(
+    "exec:run a command in the bundle context"
+    "install:install dependencies"
+    "update:update dependencies"
+    "config:manage Bundler configuration"
+    "console:start an IRB session in the bundle context"
+    "open:open an installed gem"
+    "show:show gem information"
+  )
+  _describe -t bundle-commands "bundle command" bundle_commands
+  return
+fi
+
+if [[ "${words[2]}" != exec ]]; then
+  return 1
+fi
+
+if (( CURRENT == 3 )); then
+  compadd rake
+  return
+fi
+
+if [[ "${words[3]}" == rake ]]; then
+  autoload -Uz _rake_tasks
+  _rake_tasks
+  return
+fi
+
+return 1
+',
+    require => File['/usr/local/share/zsh/site-functions'],
+  }
+
+  file { '/usr/local/share/zsh/site-functions/_rake_tasks':
+    ensure  => file,
+    mode    => '0644',
+    content => '#autoload
+
+local -a task_lines tasks
+
+if [[ -f Gemfile ]] && (( $+commands[rbenv] )) && (( $+commands[bundle] )); then
+  task_lines=("${(@f)$(rbenv exec bundle exec rake -AT 2>/dev/null)}")
+fi
+
+if (( ! ${#task_lines} )) && [[ -f Gemfile ]] && (( $+commands[bundle] )); then
+  task_lines=("${(@f)$(bundle exec rake -AT 2>/dev/null)}")
+fi
+
+if (( ! ${#task_lines} )) && (( $+commands[rbenv] )); then
+  task_lines=("${(@f)$(rbenv exec rake -AT 2>/dev/null)}")
+fi
+
+if (( ! ${#task_lines} )); then
+  task_lines=("${(@f)$(rake -AT 2>/dev/null)}")
+fi
+
+tasks=("${(@f)$(/usr/bin/printf \'%s\n\' "${task_lines[@]}" | /usr/bin/awk \'
+  /^rake[[:space:]]+/ {
+    sub(/^rake[[:space:]]+/, "")
+    split($0, parts, /[[:space:]]+#/)
+    task = parts[1]
+    desc = parts[2]
+    sub(/^[[:space:]]+/, "", desc)
+
+    if (task != "") {
+      print task ":" desc
+    }
+  }
+\' | /usr/bin/sort -u)}")
+
+(( ${#tasks} )) && _describe -t rake-tasks "rake task" tasks
+',
+    require => File['/usr/local/share/zsh/site-functions'],
+  }
+
 # I don't think I want this any more:
 #
 #  exec { 'install oh-my-zsh':

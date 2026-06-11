@@ -40,6 +40,8 @@ brew::pkgs:
   - mas
   - cookiecutter
   - node
+  - oven-sh/bun/bun
+  - deno
   - kubectl
   - kubectx
   - kubeseal

@@ -66,6 +66,7 @@ brew::pkgs:
   - postgresql
   - lilypond  # Music software.
   - ghostscript  # Used to rasterize LilyPond PDFs.
+  - ffmpeg
 
 brew::casks:
   # On first run, macOS may require App Management approval before Homebrew
